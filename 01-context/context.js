@@ -53,4 +53,5 @@ gl.clearColor(0, 0, 0, 1);
 // Clear the color buffer using the current clear color.
 gl.clear(gl.COLOR_BUFFER_BIT);
 
-console.log(gl);
+// Draw a single point with the current program and state.
+gl.drawArrays(gl.POINTS, 0, 1);
