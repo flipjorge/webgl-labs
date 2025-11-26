@@ -10,13 +10,13 @@ void main() {
 const fragmentShaderSource = `#version 300 es
 precision mediump float;
 
-uniform int colorIndex;
-uniform vec4 colors[3];
+uniform int uColorIndex;
+uniform vec4 uColors[3];
 
 out vec4 outColor;
 
 void main() {
-    outColor = colors[colorIndex];
+    outColor = uColors[uColorIndex];
 }`;
 
 /** @type {WebGL2RenderingContext} */ 
@@ -44,8 +44,8 @@ if(!gl.getProgramParameter(program, gl.LINK_STATUS)) {
 gl.useProgram(program);
 
 // Get uniform locations
-const colorIndexLocation = gl.getUniformLocation(program, 'colorIndex');
-const colorsLocation = gl.getUniformLocation(program, 'colors');
+const colorIndexLocation = gl.getUniformLocation(program, 'uColorIndex');
+const colorsLocation = gl.getUniformLocation(program, 'uColors');
 
 // Set uniform values
 gl.uniform1i(colorIndexLocation, 1);
