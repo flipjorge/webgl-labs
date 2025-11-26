@@ -3,6 +3,7 @@ body {
     padding: 0;
 
     background-color: darkslategrey;
+    color: white;
 }
 
 #the-canvas {
