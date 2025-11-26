@@ -22,10 +22,10 @@ const gl = canvas.getContext('webgl2');
 // The program will hold the vertex and fragment shaders.
 const program = gl.createProgram();
 
-const vertexShader = gl.createShader(gl.VERTEX_SHADER);
 
 // Compile each shader and attach it to the program.
 // Compilation makes the shader source ready for the program.
+const vertexShader = gl.createShader(gl.VERTEX_SHADER);
 gl.shaderSource(vertexShader, vertexShaderSource);
 gl.compileShader(vertexShader);
 gl.attachShader(program, vertexShader);
