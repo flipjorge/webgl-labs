@@ -54,6 +54,8 @@ const positionOffsetAttLocation = gl.getAttribLocation(program, 'aPositionOffset
 const scaleAttLocation = gl.getAttribLocation(program, 'aScale');
 const colorAttLocation = gl.getAttribLocation(program, 'aColor');
 
+// To use instancing we need 2 buffers, one with vertex data and other with transforming data
+
 // x, y
 const vertexData = new Float32Array([
     -0.05, -0.05,
@@ -71,6 +73,7 @@ const transformData = new Float32Array([
     -0.8, 0.6, 3, 1, 1, 1, 1,
 ])
 
+// Binding vertex data
 const vertexBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
 gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
@@ -78,6 +81,7 @@ gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
 gl.vertexAttribPointer(vertexAttLocation, 2, gl.FLOAT, false, 2*4, 0);
 gl.enableVertexAttribArray(vertexAttLocation);
 
+// Binding transforming data
 const transformBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, transformBuffer);
 gl.bufferData(gl.ARRAY_BUFFER, transformData, gl.STATIC_DRAW);
@@ -90,6 +94,7 @@ gl.enableVertexAttribArray(positionOffsetAttLocation);
 gl.enableVertexAttribArray(scaleAttLocation);
 gl.enableVertexAttribArray(colorAttLocation);
 
+// Says to jump 1 row for each instance
 gl.vertexAttribDivisor(positionOffsetAttLocation, 1);
 gl.vertexAttribDivisor(scaleAttLocation, 1);
 gl.vertexAttribDivisor(colorAttLocation, 1);
@@ -97,4 +102,5 @@ gl.vertexAttribDivisor(colorAttLocation, 1);
 gl.clearColor(0, 0, 0, 1);
 gl.clear(gl.COLOR_BUFFER_BIT);
 
+// Draws 6 instances
 gl.drawArraysInstanced(gl.TRIANGLES, 0, 3, 6);
