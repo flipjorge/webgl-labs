@@ -51,6 +51,7 @@ if(!gl.getProgramParameter(program, gl.LINK_STATUS)) {
 
 gl.useProgram(program);
 
+// MVP matrices are passed by uniforms, since its easier than using attributes
 const modelUniLocation = gl.getUniformLocation(program, 'uModel');
 const viewUniLocation = gl.getUniformLocation(program, 'uView');
 const projectionUniLocation = gl.getUniformLocation(program, 'uProjection');
@@ -119,6 +120,7 @@ gl.vertexAttribPointer(colorAttLocation, 4, gl.FLOAT, true, 7*4, 3*4);
 gl.enableVertexAttribArray(vertexAttLocation);
 gl.enableVertexAttribArray(colorAttLocation);
 
+// Creating the MVP matrices
 const modelMatrix = glMatrix.mat4.create();
 const viewMatrix = glMatrix.mat4.create();
 const projectionMatrix = glMatrix.mat4.create();
@@ -126,6 +128,7 @@ const projectionMatrix = glMatrix.mat4.create();
 glMatrix.mat4.lookAt(viewMatrix, [0, 1, -2], [0,0,0], [0,1,0]);
 glMatrix.mat4.perspective(projectionMatrix, Math.PI / 2, gl.canvas.width / gl.canvas.height, .01, 100);
 
+// Pass matriced to uniforms
 gl.uniformMatrix4fv(modelUniLocation, false, modelMatrix);
 gl.uniformMatrix4fv(viewUniLocation, false, viewMatrix);
 gl.uniformMatrix4fv(projectionUniLocation, false, projectionMatrix);
@@ -137,6 +140,7 @@ gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 function run() {
     requestAnimationFrame(run);
 
+    // Rotates the model matrix every frame and passes it to uniform
     glMatrix.mat4.rotateY(modelMatrix, modelMatrix, 0.01);
     gl.uniformMatrix4fv(modelUniLocation, false, modelMatrix);
 
